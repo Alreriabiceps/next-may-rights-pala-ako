@@ -71,6 +71,8 @@ export const LAWYERS: Lawyer[] = [
     availability: "Monday - Friday, 9:00 AM - 6:00 PM",
     casesHandled: 450,
     successRate: "87%",
+    latitude: 14.5806,
+    longitude: 120.9814,
   },
   {
     id: "lawyer-2",
@@ -103,6 +105,8 @@ export const LAWYERS: Lawyer[] = [
     availability: "Monday - Saturday, 8:00 AM - 7:00 PM",
     casesHandled: 320,
     successRate: "82%",
+    latitude: 14.676,
+    longitude: 121.0437,
   },
   {
     id: "lawyer-3",
@@ -136,6 +140,8 @@ export const LAWYERS: Lawyer[] = [
     availability: "Monday - Friday, 10:00 AM - 5:00 PM",
     casesHandled: 680,
     successRate: "91%",
+    latitude: 14.5547,
+    longitude: 121.0244,
   },
   {
     id: "lawyer-4",
@@ -167,6 +173,8 @@ export const LAWYERS: Lawyer[] = [
     availability: "Monday - Friday, 9:00 AM - 6:00 PM",
     casesHandled: 180,
     successRate: "79%",
+    latitude: 14.5866,
+    longitude: 121.0623,
   },
   {
     id: "lawyer-5",
@@ -199,6 +207,8 @@ export const LAWYERS: Lawyer[] = [
     availability: "Monday - Friday, 8:00 AM - 6:00 PM",
     casesHandled: 390,
     successRate: "85%",
+    latitude: 14.5794,
+    longitude: 121.0359,
   },
 ];
 

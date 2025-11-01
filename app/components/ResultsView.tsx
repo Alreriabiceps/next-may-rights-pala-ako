@@ -8,6 +8,7 @@ import LawyerCard from "./LawyerCard";
 import LawyerProfileModal from "./LawyerProfileModal";
 import CostEstimate from "./CostEstimate";
 import GovernmentAgencies from "./GovernmentAgencies";
+import LawyersMap from "./LawyersMap";
 
 interface ResultsViewProps {
   results: CaseAnalysis;
@@ -171,6 +172,9 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
             </ul>
           </div>
         </div>
+
+        {/* Lawyers Map Section */}
+        <LawyersMap lawyers={results.lawyers} />
 
         {/* Nearby Lawyers Section */}
         <div className="bg-white rounded-xl shadow-xl border border-gray-100 p-6 mt-6">

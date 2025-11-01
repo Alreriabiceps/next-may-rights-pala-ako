@@ -27,6 +27,9 @@ export interface Lawyer {
   availability?: string;
   casesHandled?: number;
   successRate?: string;
+  // Map coordinates
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface CaseSeverity {
