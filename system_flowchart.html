@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>System Flowchart</title>
+  <style>
+    body {
+      margin: 20px;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="3200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .box { fill: #1565C0; stroke: #000; stroke-width: 2; rx: 8; }
+      .diamond { fill: #FF6F00; stroke: #000; stroke-width: 2; }
+      .start { fill: #2E7D32; stroke: #000; stroke-width: 2; rx: 8; }
+      .end { fill: #00695C; stroke: #000; stroke-width: 2; rx: 8; }
+      .api { fill: #7B1FA2; stroke: #000; stroke-width: 2; rx: 8; }
+      .display { fill: #C62828; stroke: #000; stroke-width: 2; rx: 8; }
+      .error { fill: #E53935; stroke: #000; stroke-width: 2; rx: 8; }
+      .text { fill: white; font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+      .arrow { stroke: #000; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .label-text { fill: #000; font-family: Arial, sans-serif; font-size: 10px; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#000" />
+    </marker>
+  </defs>
+  
+  <!-- Title -->
+  <text x="600" y="30" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle">
+    Know Your Rights - Legal Analysis System Flowchart
+  </text>
+  
+  <!-- START -->
+  <rect x="500" y="60" width="200" height="50" class="start"/>
+  <text x="600" y="90" class="text">START</text>
+  <text x="600" y="105" class="text" font-size="10">User Opens App</text>
+  
+  <!-- User Input Form -->
+  <rect x="450" y="140" width="300" height="70" class="box"/>
+  <text x="600" y="170" class="text">User Input Form</text>
+  <text x="600" y="185" class="text" font-size="11">- Case Description</text>
+  <text x="600" y="200" class="text" font-size="11">- Optional Files</text>
+  
+  <!-- Submit Button -->
+  <rect x="475" y="240" width="250" height="50" class="box"/>
+  <text x="600" y="270" class="text">User Clicks</text>
+  <text x="600" y="285" class="text" font-size="11">"Analyze My Rights"</text>
+  
+  <!-- Validation -->
+  <polygon points="600,330 670,360 600,390 530,360" class="diamond"/>
+  <text x="600" y="355" class="text" font-size="11">Description</text>
+  <text x="600" y="370" class="text" font-size="11">Valid?</text>
+  
+  <!-- No branch -->
+  <rect x="150" y="360" width="150" height="40" class="error"/>
+  <text x="225" y="385" class="text" font-size="10">Return Error (400)</text>
+  <line x1="330" y1="380" x2="530" y2="380" class="arrow"/>
+  <text x="430" y="375" class="label-text">No</text>
+  
+  <!-- Yes branch - API Route -->
+  <rect x="450" y="430" width="300" height="70" class="api"/>
+  <text x="600" y="460" class="text">API Route</text>
+  <text x="600" y="475" class="text" font-size="11">/api/analyze (POST)</text>
+  <text x="600" y="490" class="text" font-size="11">Process FormData</text>
+  
+  <!-- Check API Key -->
+  <polygon points="600,540 670,570 600,600 530,570" class="diamond"/>
+  <text x="600" y="565" class="text" font-size="11">GEMINI_API_KEY</text>
+  <text x="600" y="580" class="text" font-size="11">Exists?</text>
+  
+  <!-- No API Key -->
+  <rect x="150" y="570" width="150" height="40" class="error"/>
+  <text x="225" y="595" class="text" font-size="10">Return Error (500)</text>
+  <line x1="330" y1="590" x2="530" y2="590" class="arrow"/>
+  <text x="430" y="585" class="label-text">No</text>
+  
+  <!-- Initialize Gemini -->
+  <rect x="475" y="640" width="250" height="50" class="api"/>
+  <text x="600" y="670" class="text">Initialize</text>
+  <text x="600" y="685" class="text" font-size="11">Google Gemini AI</text>
+  
+  <!-- Fetch Available Models -->
+  <rect x="450" y="720" width="300" height="50" class="api"/>
+  <text x="600" y="750" class="text">Fetch Available Models from API</text>
+  
+  <!-- Try Models -->
+  <rect x="450" y="800" width="300" height="70" class="api"/>
+  <text x="600" y="830" class="text">Try Models:</text>
+  <text x="600" y="845" class="text" font-size="11">gemini-pro</text>
+  <text x="600" y="860" class="text" font-size="11">gemini-1.5-flash</text>
+  
+  <!-- Create Prompt -->
+  <rect x="425" y="900" width="350" height="90" class="api"/>
+  <text x="600" y="930" class="text">Create Legal Analysis Prompt</text>
+  <text x="600" y="945" class="text" font-size="11">- User Description</text>
+  <text x="600" y="960" class="text" font-size="11">- Philippine Laws</text>
+  <text x="600" y="975" class="text" font-size="11">- JSON Structure</text>
+  
+  <!-- Call Gemini API -->
+  <rect x="450" y="1020" width="300" height="50" class="api"/>
+  <text x="600" y="1050" class="text">Call Gemini API</text>
+  <text x="600" y="1065" class="text" font-size="11">Generate Content</text>
+  
+  <!-- Parse Response -->
+  <rect x="450" y="1100" width="300" height="70" class="api"/>
+  <text x="600" y="1130" class="text">Parse Gemini Response</text>
+  <text x="600" y="1145" class="text" font-size="11">Extract JSON</text>
+  <text x="600" y="1160" class="text" font-size="11">Handle Errors</text>
+  
+  <!-- Filter Lawyers -->
+  <rect x="450" y="1200" width="300" height="50" class="api"/>
+  <text x="600" y="1230" class="text">Filter Lawyers by Case Type</text>
+  
+  <!-- Structure Response -->
+  <rect x="425" y="1280" width="350" height="90" class="api"/>
+  <text x="600" y="1310" class="text">Structure CaseAnalysis</text>
+  <text x="600" y="1325" class="text" font-size="11">- Case Type</text>
+  <text x="600" y="1340" class="text" font-size="11">- Severity, Timeline</text>
+  <text x="600" y="1355" class="text" font-size="11">- Laws, Rights, etc.</text>
+  
+  <!-- Return JSON -->
+  <rect x="475" y="1400" width="250" height="50" class="api"/>
+  <text x="600" y="1430" class="text">Return JSON Response</text>
+  
+  <!-- Frontend Receives -->
+  <rect x="450" y="1480" width="300" height="50" class="box"/>
+  <text x="600" y="1510" class="text">Frontend Receives</text>
+  <text x="600" y="1525" class="text" font-size="11">Analysis Results</text>
+  
+  <!-- Display Results -->
+  <rect x="425" y="1560" width="350" height="100" class="display"/>
+  <text x="600" y="1590" class="text">Display ResultsView</text>
+  <text x="600" y="1605" class="text" font-size="11">- Case Summary</text>
+  <text x="600" y="1620" class="text" font-size="11">- Risk Assessment</text>
+  <text x="600" y="1635" class="text" font-size="11">- Relevant Laws</text>
+  <text x="600" y="1650" class="text" font-size="11">- User Rights</text>
+  
+  <!-- Additional Sections -->
+  <rect x="425" y="1690" width="350" height="120" class="display"/>
+  <text x="600" y="1720" class="text">Display Additional Sections</text>
+  <text x="600" y="1735" class="text" font-size="11">- Recommended Lawyers</text>
+  <text x="600" y="1750" class="text" font-size="11">- Essential Documents</text>
+  <text x="600" y="1765" class="text" font-size="11">- Evidence Guide</text>
+  <text x="600" y="1780" class="text" font-size="11">- Cost Estimate</text>
+  <text x="600" y="1795" class="text" font-size="11">- Government Agencies</text>
+  
+  <!-- User Interactions -->
+  <rect x="450" y="1840" width="300" height="70" class="display"/>
+  <text x="600" y="1870" class="text">User Interactions</text>
+  <text x="600" y="1885" class="text" font-size="11">- View Lawyer Profiles</text>
+  <text x="600" y="1900" class="text" font-size="11">- Reset to Form</text>
+  
+  <!-- END -->
+  <rect x="500" y="1940" width="200" height="50" class="end"/>
+  <text x="600" y="1970" class="text">END</text>
+  
+  <!-- Arrows -->
+  <line x1="600" y1="110" x2="600" y2="140" class="arrow"/>
+  <line x1="600" y1="210" x2="600" y2="240" class="arrow"/>
+  <line x1="600" y1="290" x2="600" y2="330" class="arrow"/>
+  <line x1="600" y1="390" x2="600" y2="430" class="arrow"/>
+  <line x1="600" y1="500" x2="600" y2="540" class="arrow"/>
+  <line x1="600" y1="600" x2="600" y2="640" class="arrow"/>
+  <line x1="600" y1="690" x2="600" y2="720" class="arrow"/>
+  <line x1="600" y1="770" x2="600" y2="800" class="arrow"/>
+  <line x1="600" y1="870" x2="600" y2="900" class="arrow"/>
+  <line x1="600" y1="990" x2="600" y2="1020" class="arrow"/>
+  <line x1="600" y1="1070" x2="600" y2="1100" class="arrow"/>
+  <line x1="600" y1="1170" x2="600" y2="1200" class="arrow"/>
+  <line x1="600" y1="1250" x2="600" y2="1280" class="arrow"/>
+  <line x1="600" y1="1370" x2="600" y2="1400" class="arrow"/>
+  <line x1="600" y1="1450" x2="600" y2="1480" class="arrow"/>
+  <line x1="600" y1="1530" x2="600" y2="1560" class="arrow"/>
+  <line x1="600" y1="1660" x2="600" y2="1690" class="arrow"/>
+  <line x1="600" y1="1810" x2="600" y2="1840" class="arrow"/>
+  <line x1="600" y1="1910" x2="600" y2="1940" class="arrow"/>
+  
+  <!-- Legend -->
+  <rect x="50" y="2100" width="300" height="200" fill="white" stroke="#000" stroke-width="2" rx="8"/>
+  <text x="200" y="2130" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Legend</text>
+  
+  <rect x="70" y="2150" width="60" height="30" class="start"/>
+  <text x="100" y="2170" class="text" font-size="10">Start/End</text>
+  
+  <rect x="70" y="2190" width="60" height="30" class="box"/>
+  <text x="100" y="2210" class="text" font-size="10">Frontend</text>
+  
+  <rect x="70" y="2230" width="60" height="30" class="diamond"/>
+  <text x="100" y="2250" class="text" font-size="10">Decision</text>
+  
+  <rect x="70" y="2270" width="60" height="30" class="api"/>
+  <text x="100" y="2290" class="text" font-size="10">API/Backend</text>
+  
+  <rect x="170" y="2150" width="60" height="30" class="display"/>
+  <text x="200" y="2170" class="text" font-size="10">Display/UI</text>
+  
+  <rect x="170" y="2190" width="60" height="30" class="error"/>
+  <text x="200" y="2210" class="text" font-size="10">Error</text>
+  
+</svg>
+</body>
+</html>
