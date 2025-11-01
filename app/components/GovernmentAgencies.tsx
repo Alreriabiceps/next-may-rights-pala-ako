@@ -32,7 +32,7 @@ export default function GovernmentAgencies({
           </svg>
         </div>
         <h2 className="text-2xl font-bold text-[#1a2e4f]">
-          Government Agencies
+          Mga Ahensya ng Gobyerno
         </h2>
       </div>
 
@@ -91,7 +91,7 @@ export default function GovernmentAgencies({
                     rel="noopener noreferrer"
                     className="text-[#1a2e4f] hover:text-[#1e3a5f] font-semibold underline"
                   >
-                    Visit Website
+                    Bisitahin ang Website
                   </a>
                 </div>
               )}

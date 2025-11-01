@@ -7,9 +7,7 @@ import LawCard from "./LawCard";
 import LawyerCard from "./LawyerCard";
 import LawyerProfileModal from "./LawyerProfileModal";
 import CostEstimate from "./CostEstimate";
-import RiskAssessmentComponent from "./RiskAssessment";
 import GovernmentAgencies from "./GovernmentAgencies";
-import EvidenceGuide from "./EvidenceGuide";
 
 interface ResultsViewProps {
   results: CaseAnalysis;
@@ -59,7 +57,7 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            Back to Form
+            Bumalik sa Form
           </button>
 
           <div className="bg-gradient-to-r from-[#1a2e4f] via-[#1e3a5f] to-[#1a2e4f] rounded-2xl shadow-2xl p-8 text-white">
@@ -81,10 +79,10 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
               </div>
               <div>
                 <h1 className="text-4xl md:text-5xl font-bold mb-2">
-                  Case Analysis Complete
+                  Kumpleto na ang Pagsusuri ng Kaso
                 </h1>
                 <p className="text-gray-200 text-lg">
-                  Based on Philippine law and your situation
+                  Batay sa batas ng Pilipinas at sa inyong sitwasyon
                 </p>
               </div>
             </div>
@@ -97,13 +95,6 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
           severity={results.severity}
           timeline={results.timeline}
         />
-
-        {/* Risk Assessment Section */}
-        {results.riskAssessment && (
-          <div className="mt-6">
-            <RiskAssessmentComponent riskAssessment={results.riskAssessment} />
-          </div>
-        )}
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
           {/* Relevant Laws Section */}
@@ -125,7 +116,7 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
                 </svg>
               </div>
               <h2 className="text-2xl font-bold text-[#1a2e4f]">
-                Relevant Laws
+                Mga Kaugnay na Batas
               </h2>
             </div>
             <div className="space-y-4">
@@ -153,7 +144,9 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
                   />
                 </svg>
               </div>
-              <h2 className="text-2xl font-bold text-[#1a2e4f]">Your Rights</h2>
+              <h2 className="text-2xl font-bold text-[#1a2e4f]">
+                Inyong Mga Karapatan
+              </h2>
             </div>
             <ul className="space-y-4">
               {results.rights.map((right, index) => (
@@ -198,7 +191,7 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
               </svg>
             </div>
             <h2 className="text-2xl font-bold text-[#1a2e4f]">
-              Recommended Lawyers
+              Mga Inirerekomendang Abogado
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -231,7 +224,7 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
               </svg>
             </div>
             <h2 className="text-2xl font-bold text-[#1a2e4f]">
-              Essential Documents
+              Mga Mahahalagang Dokumento
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -249,13 +242,6 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
             ))}
           </div>
         </div>
-
-        {/* Evidence Collection Guide Section */}
-        {results.evidenceGuide && results.evidenceGuide.length > 0 && (
-          <div className="mt-6">
-            <EvidenceGuide evidenceGuide={results.evidenceGuide} />
-          </div>
-        )}
 
         {/* Cost Estimate Section */}
         {results.estimatedCosts && (
@@ -291,11 +277,13 @@ export default function ResultsView({ results, onReset }: ResultsViewProps) {
             <p className="font-bold text-[#1a2e4f] text-lg">Legal Disclaimer</p>
           </div>
           <p className="text-center text-gray-700 mb-2">
-            This analysis provides general legal information based on Philippine
-            law and does not constitute legal advice.
+            Ang pagsusuring ito ay nagbibigay lamang ng pangkalahatang
+            impormasyong legal batay sa batas ng Pilipinas at hindi ito legal na
+            payo.
           </p>
           <p className="text-center text-gray-700 font-medium">
-            Please consult with a qualified lawyer for your specific situation.
+            Pakikonsulta sa isang kwalipikadong abogado para sa inyong
+            partikular na sitwasyon.
           </p>
         </div>
       </div>

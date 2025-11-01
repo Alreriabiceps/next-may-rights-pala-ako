@@ -142,112 +142,95 @@ function createLegalAnalysisPrompt(
     .map((law) => `- ${law.title}: ${law.law}\n  ${law.description}`)
     .join("\n\n");
 
-  return `You are a legal expert specializing in Philippine law. Analyze the following legal situation and provide a comprehensive analysis.
+  return `Ikaw ay isang legal na eksperto na dalubhasa sa batas ng Pilipinas. Suriin ang sumusunod na legal na sitwasyon at magbigay ng komprehensibong pagsusuri.
 
-USER'S SITUATION:
+SITWASYON NG USER:
 ${description}
 
-AVAILABLE PHILIPPINE LAWS FOR REFERENCE:
+MGA AVAILABLE NA BATAS NG PILIPINAS PARA SA REFERENCE:
 ${lawsContext}
 
-Please analyze this case and provide a JSON response with the following structure:
+Pakiusap na suriin ang kasong ito at magbigay ng JSON response gamit ang sumusunod na structure. IMPORTANTE: Lahat ng teksto sa response ay dapat nasa Tagalog/Filipino.
 {
   "caseType": "Property|Criminal|Labor|Family Law|Civil|Administrative|Tax|Corporate",
   "severity": {
     "rating": "low|medium|high",
     "complexity": <number 1-10>,
-    "financialImpact": "<detailed description>",
-    "timeSensitivity": "<detailed description>"
+    "financialImpact": "<detailed description sa Tagalog>",
+    "timeSensitivity": "<detailed description sa Tagalog>"
   },
   "timeline": {
-    "issueDuration": "<extracted duration or 'Unknown'>",
+    "issueDuration": "<extracted duration sa Tagalog o 'Hindi alam'>",
     "statuteOfLimitations": {
       "applicable": <boolean>,
-      "deadline": "<ISO date string or null>",
-      "daysRemaining": <number or null>,
-      "warning": "<warning message or null>"
+      "deadline": "<ISO date string o null>",
+      "daysRemaining": <number o null>,
+      "warning": "<warning message sa Tagalog o null>"
     },
-    "estimatedResolution": "<estimated timeline>",
+    "estimatedResolution": "<estimated timeline sa Tagalog>",
     "milestones": []
   },
   "relevantLaws": [
     {
       "title": "<law title>",
       "law": "<law citation>",
-      "description": "<how it applies>",
+      "description": "<how it applies sa Tagalog>",
       "relevance": "high|medium|low"
     }
   ],
   "rights": [
-    "<specific right 1>",
-    "<specific right 2>",
-    "<specific right 3>"
+    "<specific right 1 sa Tagalog>",
+    "<specific right 2 sa Tagalog>",
+    "<specific right 3 sa Tagalog>",
+    "... (mas marami kung applicable)"
   ],
   "essentialDocuments": [
-    "<document 1 needed>",
-    "<document 2 needed>",
-    "<document 3 needed>"
+    "<document 1 needed sa Tagalog>",
+    "<document 2 needed sa Tagalog>",
+    "<document 3 needed sa Tagalog>",
+    "... (mas marami kung applicable)"
   ],
   "nextSteps": [
     {
-      "action": "<action item>",
+      "action": "<action item sa Tagalog>",
       "priority": "high|medium|low",
-      "deadline": "<ISO date string or null>"
+      "deadline": "<ISO date string o null>"
     }
   ],
   "estimatedCosts": {
-    "consultationFee": "<estimated consultation fee range in PHP, e.g., '₱3,000 - ₱5,000'>",
-    "filingFees": "<estimated filing fees range in PHP, e.g., '₱5,000 - ₱15,000'>",
-    "totalEstimated": "<total estimated cost range in PHP, e.g., '₱10,000 - ₱50,000'>",
-    "paymentPlan": "<optional note about payment plans if available>"
-  },
-  "riskAssessment": {
-    "inactionRisks": [
-      "<risk 1 of not taking action>",
-      "<risk 2 of not taking action>",
-      "<risk 3 of not taking action>"
-    ],
-    "actionBenefits": [
-      "<benefit 1 of taking action>",
-      "<benefit 2 of taking action>",
-      "<benefit 3 of taking action>"
-    ],
-    "urgencyLevel": "low|medium|high"
+    "consultationFee": "<estimated consultation fee range sa PHP, e.g., '₱3,000 - ₱5,000'>",
+    "filingFees": "<estimated filing fees range sa PHP, e.g., '₱5,000 - ₱15,000'>",
+    "totalEstimated": "<total estimated cost range sa PHP, e.g., '₱10,000 - ₱50,000'>",
+    "paymentPlan": "<optional note about payment plans sa Tagalog kung available>",
+    "additionalCosts": "<optional: iba pang gastos tulad ng notary fees, court fees, etc. sa Tagalog>",
+    "costBreakdown": "<optional: detailed breakdown ng costs sa Tagalog>"
   },
   "governmentAgencies": [
     {
       "name": "<agency name>",
-      "purpose": "<why to contact this agency>",
-      "contact": "<phone number or contact info>",
+      "purpose": "<why to contact this agency sa Tagalog>",
+      "contact": "<phone number o contact info>",
       "website": "<optional website URL>"
-    }
-  ],
-  "evidenceGuide": [
-    {
-      "item": "<evidence item name>",
-      "description": "<what it is and why it's needed>",
-      "importance": "critical|important|helpful"
     }
   ]
 }
 
-IMPORTANT INSTRUCTIONS:
-1. Extract the case type based on the situation described
-2. Assess severity based on legal complexity, financial impact, and urgency
-3. Identify relevant Philippine laws from the provided list (max 3-4 most relevant)
-4. Extract or infer the duration of the issue from the description
-5. Determine if statute of limitations applies and calculate deadlines if applicable
-6. Provide specific, actionable rights based on Philippine law
-7. List essential documents needed for this specific case
-8. Create prioritized next steps with deadlines if applicable
-9. Estimate realistic costs based on Philippine legal fees (consultation fees typically ₱3,000-₱10,000, filing fees vary by case type)
-10. Assess risks of inaction vs benefits of taking action - be realistic and practical
-11. Identify relevant Philippine government agencies (e.g., DOJ, DSWD, DOLE, LRA, etc.) that can help
-12. Provide evidence collection guide with items prioritized by importance (critical items are must-haves, helpful items strengthen the case)
-13. Use actual Philippine legal principles and cite specific laws when possible
-14. Return ONLY valid JSON, no additional text or markdown formatting
+IMPORTANT INSTRUCTIONS (LAHAT NG RESPONSE AY DAPAT NASA TAGALOG):
+1. I-extract ang case type batay sa sitwasyong inilarawan
+2. Suriin ang severity batay sa legal complexity, financial impact, at urgency
+3. Tukuyin ang LAHAT ng kaugnay na batas ng Pilipinas mula sa provided list - isama ang lahat ng applicable (walang limit, maging comprehensive)
+4. I-extract o infer ang duration ng issue mula sa description
+5. Tukuyin kung applicable ang statute of limitations at kalkulahin ang deadlines kung applicable
+6. Magbigay ng LAHAT ng specific, actionable na karapatan batay sa batas ng Pilipinas - isama ang lahat ng applicable (walang limit)
+7. Listahin ang essential documents na kailangan para sa specific na kasong ito
+8. Gumawa ng prioritized next steps na may deadlines kung applicable
+9. Tantiyahin ang realistic costs batay sa Philippine legal fees (consultation fees typically ₱3,000-₱10,000, filing fees vary by case type). Isama ang detailed breakdown ng lahat ng potential costs.
+10. Tukuyin ang relevant Philippine government agencies (e.g., DOJ, DSWD, DOLE, LRA, etc.) na makakatulong
+11. Gamitin ang actual Philippine legal principles at i-cite ang specific laws kapag posible
+12. Magbalik ng valid JSON LAMANG, walang additional text o markdown formatting
+13. LAHAT NG TEKSTO SA RESPONSE AY DAPAT NASA TAGALOG/FILIPINO
 
-Analyze the case now and return the JSON response:`;
+Suriin ang kaso ngayon at ibalik ang JSON response:`;
 }
 
 function parseGeminiResponse(
@@ -295,36 +278,33 @@ function parseGeminiResponse(
     }).slice(0, 3);
 
     // Map relevant laws - try to match with our database or use Gemini's suggestions
+    // No limit - include all relevant laws
     const relevantLaws =
-      parsed.relevantLaws
-        ?.slice(0, 3)
-        .map(
-          (law: {
-            title?: string;
-            law?: string;
-            description?: string;
-            relevance?: string;
-          }) => {
-            // Try to find matching law in our database
-            const matchingLaw = PHILIPPINE_LAWS.find(
-              (l) =>
-                l.title
-                  .toLowerCase()
-                  .includes(law.title?.toLowerCase() || "") ||
-                l.law.toLowerCase().includes(law.law?.toLowerCase() || "")
-            );
+      parsed.relevantLaws?.map(
+        (law: {
+          title?: string;
+          law?: string;
+          description?: string;
+          relevance?: string;
+        }) => {
+          // Try to find matching law in our database
+          const matchingLaw = PHILIPPINE_LAWS.find(
+            (l) =>
+              l.title.toLowerCase().includes(law.title?.toLowerCase() || "") ||
+              l.law.toLowerCase().includes(law.law?.toLowerCase() || "")
+          );
 
-            return (
-              matchingLaw || {
-                title: law.title || "Relevant Law",
-                law: law.law || "Philippine Law",
-                description: law.description || law.law || "",
-                relevance:
-                  (law.relevance as "high" | "medium" | "low") || "medium",
-              }
-            );
-          }
-        ) || PHILIPPINE_LAWS.slice(0, 3);
+          return (
+            matchingLaw || {
+              title: law.title || "Relevant Law",
+              law: law.law || "Philippine Law",
+              description: law.description || law.law || "",
+              relevance:
+                (law.relevance as "high" | "medium" | "low") || "medium",
+            }
+          );
+        }
+      ) || [];
 
     // Process timeline
     const issueDuration = parsed.timeline?.issueDuration || "Unknown";
@@ -341,12 +321,12 @@ function parseGeminiResponse(
     if (deadline) {
       milestones.push({
         date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        event: "Initial consultation with lawyer",
+        event: "Paunang konsultasyon sa abogado",
         type: "milestone" as const,
       });
       milestones.push({
         date: deadline,
-        event: "Statute of limitations deadline",
+        event: "Deadline ng preskripsyon",
         type: "deadline" as const,
       });
     }
@@ -359,15 +339,15 @@ function parseGeminiResponse(
         financialImpact:
           parsed.severity?.financialImpact ||
           (severityRating === "high"
-            ? "High - May involve significant property value or serious consequences"
+            ? "Mataas - Maaaring may kasamang malaking halaga ng property o malubhang kahihinatnan"
             : severityRating === "medium"
-            ? "Moderate - May involve moderate financial or personal impact"
-            : "Low - Relatively minor impact expected"),
+            ? "Katamtaman - Maaaring may kasamang katamtamang financial o personal na epekto"
+            : "Mababa - Relatibong menor na epekto ang inaasahan"),
         timeSensitivity:
           parsed.severity?.timeSensitivity ||
           (daysRemaining && daysRemaining < 60
-            ? "Urgent - Statute of limitations approaching"
-            : "Moderate - Action should be taken within reasonable time"),
+            ? "Urgent - Malapit na ang statute of limitations"
+            : "Katamtaman - Dapat kumilos sa loob ng makatwirang panahon"),
       },
       timeline: {
         issueDuration,
@@ -377,48 +357,46 @@ function parseGeminiResponse(
           daysRemaining,
           warning:
             daysRemaining && daysRemaining < 60
-              ? `Statute of limitations expires in ${daysRemaining} days`
+              ? `Ang preskripsyon ay mag-e-expire sa ${daysRemaining} araw`
               : null,
         },
         estimatedResolution:
           parsed.timeline?.estimatedResolution ||
           (severityRating === "high"
-            ? "6-12 months (may vary)"
+            ? "6-12 buwan (maaaring mag-iba)"
             : severityRating === "medium"
-            ? "3-6 months (may vary)"
-            : "1-3 months (may vary)"),
+            ? "3-6 buwan (maaaring mag-iba)"
+            : "1-3 buwan (maaaring mag-iba)"),
         milestones,
       },
       relevantLaws,
       rights: parsed.rights || [
-        "You have the right to due process under the law",
-        "You have the right to legal representation",
-        "You have the right to present evidence in your favor",
+        "Mayroon kayong karapatan sa due process sa ilalim ng batas",
+        "Mayroon kayong karapatan sa legal representation",
+        "Mayroon kayong karapatan na magharap ng ebidensya para sa inyong pabor",
       ],
       lawyers: relevantLawyers,
       essentialDocuments: parsed.essentialDocuments || [
-        "All relevant documents related to your case",
+        "Lahat ng kaugnay na dokumento tungkol sa inyong kaso",
         "Valid identification",
-        "Evidence supporting your claim",
+        "Ebidensya na sumusuporta sa inyong claim",
       ],
       nextSteps: parsed.nextSteps || [
         {
           action:
-            "Consult with a qualified lawyer specializing in your case type as soon as possible",
+            "Konsultahin ang isang kwalipikadong abogado na dalubhasa sa inyong uri ng kaso sa lalong madaling panahon",
           priority: "high" as const,
           deadline: deadline ? deadline.toISOString() : null,
         },
         {
           action:
-            "Gather and organize all essential documents related to your case",
+            "Tipunin at ayusin ang lahat ng mahahalagang dokumento tungkol sa inyong kaso",
           priority: "high" as const,
           deadline: null,
         },
       ],
       estimatedCosts: parsed.estimatedCosts || undefined,
-      riskAssessment: parsed.riskAssessment || undefined,
       governmentAgencies: parsed.governmentAgencies || undefined,
-      evidenceGuide: parsed.evidenceGuide || undefined,
     };
   } catch (error) {
     console.error("Error parsing Gemini response:", error);
@@ -467,37 +445,37 @@ function fallbackAnalysis(description: string): CaseAnalysis {
       rating: "medium",
       complexity: 5,
       financialImpact:
-        "Moderate - May involve moderate financial or personal impact",
+        "Katamtaman - Maaaring may kasamang katamtamang financial o personal na epekto",
       timeSensitivity:
-        "Moderate - Action should be taken within reasonable time",
+        "Katamtaman - Dapat kumilos sa loob ng makatwirang panahon",
     },
     timeline: {
-      issueDuration: "Unknown",
+      issueDuration: "Hindi alam",
       statuteOfLimitations: {
         applicable: true,
         deadline: null,
         daysRemaining: null,
         warning: null,
       },
-      estimatedResolution: "3-6 months (may vary)",
+      estimatedResolution: "3-6 buwan (maaaring mag-iba)",
       milestones: [],
     },
-    relevantLaws: PHILIPPINE_LAWS.slice(0, 3),
+    relevantLaws: [],
     rights: [
-      "You have the right to due process under the law",
-      "You have the right to legal representation",
-      "You have the right to present evidence in your favor",
+      "Mayroon kayong karapatan sa due process sa ilalim ng batas",
+      "Mayroon kayong karapatan sa legal representation",
+      "Mayroon kayong karapatan na magharap ng ebidensya para sa inyong pabor",
     ],
     lawyers: relevantLawyers,
     essentialDocuments: [
-      "All relevant documents related to your case",
+      "Lahat ng kaugnay na dokumento tungkol sa inyong kaso",
       "Valid identification",
-      "Evidence supporting your claim",
+      "Ebidensya na sumusuporta sa inyong claim",
     ],
     nextSteps: [
       {
         action:
-          "Consult with a qualified lawyer specializing in your case type",
+          "Konsultahin ang isang kwalipikadong abogado na dalubhasa sa inyong uri ng kaso",
         priority: "high" as const,
         deadline: null,
       },
@@ -506,22 +484,12 @@ function fallbackAnalysis(description: string): CaseAnalysis {
       consultationFee: "₱3,000 - ₱5,000",
       filingFees: "₱5,000 - ₱15,000",
       totalEstimated: "₱10,000 - ₱50,000",
-      paymentPlan: "Most lawyers offer payment plans",
-    },
-    riskAssessment: {
-      inactionRisks: [
-        "Legal situation may worsen without timely action",
-        "May lose important legal rights or opportunities",
-        "Could face additional penalties or consequences",
-      ],
-      actionBenefits: [
-        "Protect your legal rights and interests",
-        "Get professional guidance on your case",
-        "Improve chances of favorable outcome",
-      ],
-      urgencyLevel: "medium" as const,
+      paymentPlan: "Karamihan ng mga abogado ay nag-aalok ng payment plan",
+      additionalCosts:
+        "Maaaring may iba pang gastos tulad ng notary fees, courier fees, at iba pa",
+      costBreakdown:
+        "Konsultasyon: ₱3,000-₱5,000 | Filing fees: ₱5,000-₱15,000 | Iba pang gastos: ₱2,000-₱10,000",
     },
     governmentAgencies: [],
-    evidenceGuide: [],
   };
 }

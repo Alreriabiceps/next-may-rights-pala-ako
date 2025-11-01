@@ -67,6 +67,8 @@ export interface EstimatedCosts {
   filingFees: string;
   totalEstimated: string;
   paymentPlan?: string;
+  additionalCosts?: string;
+  costBreakdown?: string;
 }
 
 export interface RiskAssessment {
