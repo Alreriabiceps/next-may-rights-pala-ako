@@ -23,3 +23,8 @@ GEMINI_API_KEY=your_api_key_here
 - Never commit your `.env.local` file to version control (it's already in `.gitignore`)
 - The API key is used server-side only and is not exposed to the client
 - Make sure to add the environment variable to your production hosting platform (Vercel, etc.) as well
+
+
+
+
+
